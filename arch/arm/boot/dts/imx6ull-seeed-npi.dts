@@ -12,7 +12,7 @@
 #include "imx6ull.dtsi"
 
 / {
-	model = "Embedfire i.MX6 ULL NPi Board";
+	model = "Embedfire i.MX6ULL Board";
 	compatible = "fsl,imx6ull-14x14-evk", "fsl,imx6ull";
 
 	aliases {
@@ -57,7 +57,7 @@
 			off-on-delay = <20000>;
 			enable-active-high;
 		};
-
+/*
 		reg_gpio_dvfs: regulator-gpio {
 			compatible = "regulator-gpio";
 			pinctrl-names = "default";
@@ -69,18 +69,31 @@
 			gpios = <&gpio5 3 GPIO_ACTIVE_HIGH>;
 			states = <1300000 0x1 1400000 0x0>;
 		};
+*/
 	};
+
+	leds {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_led>;
+
+		led0: cpu {
+			label = "cpu";
+			gpios = <&gpio5 3 GPIO_ACTIVE_LOW>;
+			default-state = "on";
+			linux,default-trigger = "heartbeat";
+		};
+	};
+
 
          /* External sound card */
          sound: sound {
                      status = "disabled";
          };
-
-
 };
 
 &cpu0 {
-	dc-supply = <&reg_gpio_dvfs>;
+	/*dc-supply = <&reg_gpio_dvfs>;*/
 	clock-frequency = <800000000>;
 };
 
@@ -211,13 +224,13 @@
 			MX6UL_PAD_GPIO1_IO00__ANATOP_OTG1_ID	0x17059
 		>;
 	};
-
+/*
         pinctrl_dvfs: dvfsgrp {
                 fsl,pins = <
                         MX6ULL_PAD_SNVS_TAMPER3__GPIO5_IO03      0x79
                 >;
         };
-
+*/
 	pinctrl_usdhc1: usdhc1grp {
 		fsl,pins = <
 			MX6UL_PAD_SD1_CMD__USDHC1_CMD     0x17059
@@ -306,7 +319,11 @@
 			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7 0x170f9
 		>;
 	};
-
+	pinctrl_led: ledgrp {
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER3__GPIO5_IO03 0x1b0b0
+			>;
+		};
 };
 
 &iomuxc_snvs {
@@ -396,3 +413,4 @@
 			reg = <0x00800000 0x1F800000>;
 		};
 };
+
