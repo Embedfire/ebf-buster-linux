@@ -133,3 +133,7 @@ all.config
 
 # Kdevelop4
 *.kdev4
+
+#make_deb.sh build
+build_image
+
