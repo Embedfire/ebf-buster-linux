@@ -136,4 +136,5 @@ all.config
 
 #make_deb.sh build
 build_image
+/output
 
