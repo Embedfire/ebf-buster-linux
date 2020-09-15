@@ -136,4 +136,6 @@ all.config
 
 #make_deb.sh build
 build_image
+output
+arch/arm/configs/npi_v7_defconfig_jaso*
 

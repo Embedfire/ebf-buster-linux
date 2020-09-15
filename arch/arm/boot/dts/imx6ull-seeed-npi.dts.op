@@ -22,10 +22,8 @@
 		pwm3 = &pwm4;
 	};
 	chosen {
-		/*
 		bootargs = "console=ttymxc0,115200 ubi.mtd=3 root=ubi0:rootfs rootfstype=ubifs mtdparts=gpmi-nand:64m(boot),16m(kernel),16m(dtb),-(rootfs)";
 		bootdelay= "3";
-		*/
 		stdout-path = &uart1;
 	};
 
@@ -408,7 +406,7 @@
 	pinctrl-0 = <&pinctrl_gpmi_nand>;
 	status = "okay";
 	//nand-on-flash-bbt;
-
+	/*
 	partition@0 {
 			label = "uboot";
 			reg = <0x00000000 0x00800000>;
@@ -416,6 +414,23 @@
 	partition@1 {
 		label = "rootfs";
 		reg = <0x00800000 0x1F800000>;
-	};	
+	};
+	*/
+	partition@0 {
+			label = "uboot";
+			reg = <0x000000000 0x004000000>;
+		};
+	partition@1 {
+			label = "kernel";
+			reg = <0x004000000 0x005000000>;
+		};
+	partition@2 {
+			label = "dtb";
+			reg = <0x005000000 0x006000000>;
+		};
+	partition@3 {
+			label = "rootfs";
+			reg = <0x006000000 0x020000000>;
+		};	
 };
 
